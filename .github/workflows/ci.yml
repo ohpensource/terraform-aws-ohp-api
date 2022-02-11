@@ -1,0 +1,48 @@
+name: continuous-integration
+on:
+  pull_request:
+    branches: ["main"]
+
+env:
+  REGION: ${{ secrets.AWS_REGION }}
+  COR_AWS_ACCESS_KEY_ID: ${{ secrets.COR_CICD_AUTOMATION_AWS_ACCESS_KEY_ID }}
+  COR_AWS_SECRET_ACCESS_KEY: ${{ secrets.COR_CICD_AUTOMATION_AWS_SECRET_ACCESS_KEY }}
+
+jobs:
+  check-conventional-commits:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - uses: ohpensource/platform-cicd/actions/git/ensure-conventional-commits@0.6.0.0
+        name: Ensure conventional commits
+        with:
+          base-branch: $GITHUB_BASE_REF
+          pr-branch: $GITHUB_HEAD_REF
+  check-jira-tickets-commits:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - uses: ohpensource/platform-cicd/actions/git/ensure-commits-message-jira-ticket@0.6.0.0
+        name: Ensure Jira ticket in all commits
+        with:
+          base-branch: $GITHUB_BASE_REF
+          pr-branch: $GITHUB_HEAD_REF
+  validate-iac:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ohpensource/platform-cicd/actions/terraform/tfm-validate@2.2.0.0
+        name: validate-terraform
+        with:
+          terraform-folder: "./"
+          use-backend: "false"
+  validate-security:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: aquasecurity/tfsec-action@v1.0.1
+        name: analyse-security
