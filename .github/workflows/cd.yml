@@ -1,11 +1,8 @@
 name: continuous-delivery
+
 on:
   push:
     branches: [main]
-env:
-  REGION: ${{ secrets.AWS_REGION }}
-  COR_AWS_ACCESS_KEY_ID: ${{ secrets.COR_CICD_AUTOMATION_AWS_ACCESS_KEY_ID }}
-  COR_AWS_SECRET_ACCESS_KEY: ${{ secrets.COR_CICD_AUTOMATION_AWS_SECRET_ACCESS_KEY }}
 
 jobs:
   semver-changelog:
