@@ -1,3 +1,9 @@
+# :confetti_ball: 0.0.3 (2022-02-11T15:26:45.376Z)
+- - -
+## :newspaper: Others
+* docs: LANZ-1659 update license and readme shields (#3)
+- - -
+- - -
 # :confetti_ball: 0.0.2 (2022-02-11T15:19:57.586Z)
 - - -
 ## :newspaper: Others
