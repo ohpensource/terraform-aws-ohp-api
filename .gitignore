@@ -1,4 +1,6 @@
 ignore-me
+.terraform.lock.hcl
+.terraform
 # Local .terraform directories
 **/.terraform/*
 
