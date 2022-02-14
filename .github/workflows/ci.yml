@@ -33,7 +33,7 @@ jobs:
       - uses: ohpensource/platform-cicd/actions/terraform/tfm-validate@2.2.0.0
         name: validate-terraform
         with:
-          terraform-folder: "./"
+          terraform-folder: "./examples/root-module"
           use-backend: "false"
   validate-security:
     runs-on: ubuntu-latest
